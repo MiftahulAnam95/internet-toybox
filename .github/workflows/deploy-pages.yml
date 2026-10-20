@@ -7,15 +7,11 @@ on:
   # Allow manual runs from the Actions tab
   workflow_dispatch:
 
-# Allow this workflow to deploy to GitHub Pages.
-# `administration: write` is only needed so configure-pages can switch
-# Pages to the "GitHub Actions" source on the first run (enablement below).
-# It can be removed once the site has deployed successfully.
+# Allow this workflow to deploy to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
-  administration: write
 
 # Only one Pages deployment at a time; let in-progress runs finish
 concurrency:
