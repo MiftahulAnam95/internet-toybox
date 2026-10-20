@@ -29,13 +29,28 @@ npm run build     # outputs dist/index.html
 npm run preview   # serve the production build
 ```
 
-## Deploying to Vercel
+## Deploying
 
-1. Push the repo to GitHub and import it in Vercel.
-2. Framework preset: **Vite**. Build command: `npm run build`. Output directory: `dist`.
-3. You don't need any environment variables.
+The build is a single static HTML file (`dist/index.html`) with a relative base path (`base: "./"` in `vite.config.ts`), so the exact same build works on GitHub Pages (served from the `/internet-toybox/` subpath) and on Vercel (served from the root). No environment variables are needed anywhere.
 
-The build is a single static HTML file, so any static host works (Netlify, GitHub Pages, S3). Deployment has **not** been tested from this workspace. Only the local production build was checked.
+### GitHub Pages → https://miftahulanam95.github.io/internet-toybox/
+
+Automatic. Every push to `main` runs [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml), which builds the app and deploys `dist/` to Pages. It can also be run manually from the **Actions** tab (*Run workflow*).
+
+One-time setup (already done for this repo): **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+Do **not** use "Deploy from a branch" — that serves the raw, unbuilt source files and the page stays blank.
+
+### Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FMiftahulAnam95%2Finternet-toybox)
+
+Or manually:
+
+1. Go to [vercel.com/new](https://vercel.com/new) and import this GitHub repo.
+2. Everything is auto-detected from [`vercel.json`](vercel.json) — framework preset **Vite**, build command `npm run build`, output directory `dist`. Just click **Deploy**.
+3. From then on, every push to `main` auto-deploys production, and every pull request gets its own preview URL.
+
+Any other static host (Netlify, Cloudflare Pages, S3, …) works too: build with `npm run build` and serve the `dist/` folder.
 
 ## Project structure
 
